@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reply">
+	<insert id="replyInsert">
+		INSERT INTO reply (rno,bno,replytext,replyer,secretReply) VALUES(
+			reply_seq.NEXTVAL,#{bno},#{replytext},#{replyer},#{secretReply}
+		)
+	</insert>
+	
+	<select id="replyList" resultType="com.spring.myapp.reply.vo.ReplyVO">
+	<include refid="pagingHeader"></include>
+		SELECT
+			r.rno,
+			bno,
+			r.replytext,
+			r.replyer,
+			r.secretReply,
+			r.regdate,
+			r.updatedate,
+			user_name AS userName,
+			(SELECT writer FROM board2 WHERE bno = r.bno) AS writer
+		FROM
+			reply r,
+			member m
+		WHERE
+			r.replyer = m.user_id 
+		AND 
+			bno=#{bno}
+		ORDER BY rno
+	<include refid="pagingFooter"></include>
+	</select>
+	<select id="replyCount" resultType="int">
+		SELECT
+			count(*)
+		FROM
+			reply
+		WHERE
+			bno = #{bno}
+	</select>
+	
+	<select id="replyDetail" resultType="com.spring.myapp.reply.vo.ReplyVO">
+		SELECT
+			rno,
+			bno,
+			replytext,
+			replyer,
+			regdate,
+			updatedate,
+			secretreply
+		FROM
+			reply
+		WHERE
+			rno = #{rno}
+	</select>
+	
+	
+	<sql id="pagingHeader">
+		SELECT
+			*
+		FROM
+			(
+			SELECT ROWNUM AS rn, A.* FROM(
+	</sql>
+	<sql id="pagingFooter">
+		)A
+		 )WHERE rn BETWEEN #{start} AND #{end}
+	</sql>
+	
+	<select id="replyUpdate">
+		UPDATE 
+			reply
+		SET
+			replytext =#{replytext}
+		WHERE
+			rno = #{rno}
+	</select>
+</mapper> 
