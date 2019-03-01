@@ -44,6 +44,10 @@ public class ReplyDAOImpl implements ReplyDAO {
 	@Override
 	public void replyUpdate(ReplyVO replyVO) {
 		 sqlSession.update("reply.replyUpdate",replyVO);
-		
 	}
+	// 댓글 삭제
+	@Override
+	public void replyDelete(Integer rno) {
+		sqlSession.delete("reply.replyDelete",rno);
+	}		
 }

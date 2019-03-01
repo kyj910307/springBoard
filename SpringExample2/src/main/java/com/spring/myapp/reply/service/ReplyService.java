@@ -23,4 +23,7 @@ public interface ReplyService {
 	
 	// 댓글수정
 	public void replyUpdate (ReplyVO replyVO);
+	
+	// 댓글 삭제
+	public void replyDelete(Integer rno);
 }

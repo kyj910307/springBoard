@@ -56,6 +56,8 @@ ${map.count}개의 게시물이 있습니다.
 		<th>조회수</th>
 	</tr>
 	<c:forEach var="row" items="${map.list}">
+	<c:choose>
+	<c:when test="${row.show == 'y' }">
 		<tr>
 			<td>${row.bno}</td>
 			<!-- 게시글 상세보기 페이지로 이동시 게시글 목록페이지에있는 검색조건,키워드현재페이지값을 유지하기위해 -->
@@ -68,6 +70,23 @@ ${map.count}개의 게시물이 있습니다.
 			<td><fmt:formatDate value="${row.regdate}" pattern="yyyy-MM-dd"/></td>
 			<td>${row.viewcnt}</td>
 		</tr>
+		</c:when>
+		<c:otherwise>
+			<!-- show 컬림이 n 일때 삭제된 상태 -->
+			<tr>
+				<td colspan="5" align="center">
+					<c:if test="${row.recnt > 0}">
+						<a href="${path}/board/view.do?bno=${row.bno}&curPage=${map.boardPager.curPage}&searchOption=${map.searchOption}&keyWord=${map.keyWord}">삭제된게시물입니다.
+						<span style="color:red;">(${row.recnt})</span>
+					</c:if>
+					<c:if test="${row.recnt == 0}">
+						삭제된게시물입니다.
+					</c:if>
+					</a>
+				</td>
+			</tr>
+		</c:otherwise>
+	</c:choose>
 	</c:forEach>
 	<tr>
 		<td colspan="5">

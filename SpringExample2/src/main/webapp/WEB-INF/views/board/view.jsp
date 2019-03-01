@@ -18,6 +18,11 @@
 		});
 	
 		$("#btnDelete").click(function(){
+			//var count = "${count}";
+			//if(count > 0){
+			//	alert("댓글이 있는 게시물은 삭제 할수없습니다.");
+			//	return;
+			//}
 			if(confirm("삭제하시겠습니까?")){
 				document.form1.action="${path}/board/delete.do"
 				// 폼에 입력한 데이터를 서버로 전송
@@ -161,6 +166,8 @@
 <body>
 <%@ include file="../include/member_menu.jsp" %>
 <h2>회원등록</h2>
+<c:choose>
+<c:when test="${ dto.show == 'y'}">
 <form name="form1" method="post">
 <table border="1" width="700px">
 	<tr>
@@ -211,6 +218,12 @@
 	<button type="button" id="btnReply">댓글 작성</button>
 	</c:if>
 </div>
+</c:when>
+<c:otherwise>
+	<!-- n 이면 삭제된 게시물 -->
+	삭제된 게시글입니다.
+</c:otherwise>
+</c:choose>
 <div id="listReply"></div>
 </body>
 </html>

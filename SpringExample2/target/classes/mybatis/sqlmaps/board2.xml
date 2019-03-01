@@ -12,6 +12,7 @@
 			b.regdate,
 			viewcnt,
 			user_name AS userName,
+			show,
 			(SELECT COUNT(*) FROM reply WHERE bno=b.bno) AS recnt
 		FROM
 			board2 b, member m
@@ -42,7 +43,8 @@
 			writer,
 			regdate,
 			viewcnt,
-			user_name AS userName
+			user_name AS userName,
+			show
 		FROM
 			board2 b, member m
 		WHERE
@@ -68,13 +70,14 @@
 		WHERE
 			bno = #{bno}
 	</update>
-	<delete id="boardDelete">
-		DELETE
-		FROM
+	<update id="boardDelete">
+		UPDATE 
 			board2
+		SET
+			show = 'n' 
 		WHERE
 			bno = #{bno}
-	</delete>
+	</update>
 	<!-- 게시글 레코드 개수 -->
 	<select id="countArticle" resultType="int">
 		SELECT

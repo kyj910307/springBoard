@@ -11,7 +11,16 @@ public class BoardVO {
 	private int viewcnt;
 	private String userName;
 	private int recnt; // 게시글댓글의 카운트 추가
+	private String show;
 	
+	
+	
+	public String getShow() {
+		return show;
+	}
+	public void setShow(String show) {
+		this.show = show;
+	}
 	public String getUserName() {
 		return userName;
 	}
@@ -64,7 +73,9 @@ public class BoardVO {
 	@Override
 	public String toString() {
 		return "BoardVO [bno=" + bno + ", title=" + title + ", content=" + content + ", writer=" + writer + ", regdate="
-				+ regdate + ", viewcnt=" + viewcnt + ", userName=" + userName + ", recnt=" + recnt + "]";
+				+ regdate + ", viewcnt=" + viewcnt + ", userName=" + userName + ", recnt=" + recnt + ", show=" + show
+				+ "]";
 	}
+	
 	
 }

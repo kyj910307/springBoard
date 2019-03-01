@@ -24,6 +24,8 @@ public class BoardController {
 	
 	@Autowired
 	BoardService boardService;
+	/*@Autowired
+	ReplyService replyService;*/
 	// 01. 게시글 목록
 	@RequestMapping("list.do")
 	public ModelAndView boardList(@RequestParam(defaultValue="title") String searchOption,
@@ -81,12 +83,13 @@ public class BoardController {
 		boardService.increaseViewcnt(bno,session);
 		// ModelAndView 객체
 		ModelAndView mav = new ModelAndView();
-		
 		// view 페이지 저장
 		mav.setViewName("board/view");
 		
 		// Model 데이터저장
 		mav.addObject("dto",boardService.boardView(bno));
+		// 댓글이 있는 글은 삭제 불가능
+		//mav.addObject("count",replyService.replyCount(bno));
 		return mav;
 	}
 	// 04. 게시글 수정

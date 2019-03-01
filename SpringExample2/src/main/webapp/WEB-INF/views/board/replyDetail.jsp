@@ -34,6 +34,25 @@
 	$("#btnReplyColse").click(function(){
 		$("#modifyReply").css("visibility","hidden");
 	});
+	
+	// reply delete
+	$("#btnReplyDelete").click(function(){
+		if(confirm("삭제하시겠습니까?")){
+		$.ajax({
+			type    : "delete",
+			url     : "${path}/reply/delete/${replyVO.rno}",
+			success  : function(result){
+				if(result == "success"){
+					alert("삭제완료");
+					$("modifyReply").css("visibility","hidden");
+					// 댓글 목록 갱신
+					listReply("1");
+					alert("${replyVO.rno}");
+				}
+			}
+		}); // ajax end
+		}
+	});
 		
 	</script>
 </head>

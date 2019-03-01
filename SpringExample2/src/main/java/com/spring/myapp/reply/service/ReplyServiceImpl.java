@@ -60,4 +60,9 @@ public class ReplyServiceImpl implements ReplyService {
 	public void replyUpdate(ReplyVO replyVO) {
 		replyDAO.replyUpdate(replyVO);
 	}
+	// 댓글 삭제
+	@Override
+	public void replyDelete(Integer rno) {
+		replyDAO.replyDelete(rno);
+	}
 }

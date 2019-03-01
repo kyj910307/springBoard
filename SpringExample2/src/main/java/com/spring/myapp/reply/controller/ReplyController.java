@@ -99,7 +99,24 @@ public class ReplyController {
 			entity = new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
 		}
 		// 수정처리 HTTP 상태 메세지 리턴
-		return entity;
+		return entity;	
+	}
+	
+	// 댓글 삭제
+	@RequestMapping(value="/delete/{rno}")
+	public ResponseEntity<String> replyDelete(@PathVariable("rno") Integer rno){
 		
+		ResponseEntity<String> entity = null;
+		try{
+			replyService.replyDelete(rno);
+			// 댓글 수정이 성공하면 성공 상태메세지 저장
+			entity = new ResponseEntity<String>("success",HttpStatus.OK);
+		}catch (Exception e) {
+			e.printStackTrace();
+			// 댓글 수정이 실패하면 실패 상매메세지 저장
+			entity = new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+		}
+		// 수정처리 HTTP 상태 메세지 리턴
+		return entity;
 	}
 }

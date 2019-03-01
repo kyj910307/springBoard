@@ -20,4 +20,7 @@ public interface ReplyDAO {
 	
 	// 댓글 수정
 	public void replyUpdate(ReplyVO replyVO);
+	
+	// 댓글 삭제
+	public void replyDelete(Integer rno);
 }
